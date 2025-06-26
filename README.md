@@ -1,64 +1,204 @@
-# 🧠 Sentiment Analysis API with FastAPI & Machine Learning
+# Sentiment Analysis API with FastAPI & Machine Learning
 
-This project is an end-to-end **Sentiment Analysis API** built using **FastAPI**, trained on the **IMDB Movie Review Dataset**. It supports six machine learning models and two vectorization methods (BoW and TF-IDF), and allows users to dynamically select which model/vectorizer combination to use for predictions via a REST API.
-
----
+A comprehensive sentiment analysis system built with **FastAPI** and machine learning models trained on the **IMDB Movie Review Dataset**. This project supports multiple ML models and vectorization techniques, providing dynamic sentiment prediction via REST API.
 
 ## 🚀 Features
 
-- ✅ Clean text preprocessing pipeline: HTML removal, stopwords removal, lemmatization
-- ✅ Trained 6 ML models:
+- **Advanced Text Preprocessing**: HTML tag removal, stopword filtering, and lemmatization
+- **Multiple ML Models**: 6 trained models with different algorithms and vectorization approaches
   - Logistic Regression (BoW & TF-IDF)
-  - Naive Bayes (BoW & TF-IDF)
-  - Support Vector Machines (BoW & TF-IDF)
-- ✅ API built with FastAPI + Swagger UI
-- ✅ Models and vectorizers saved with `joblib`
-- ✅ Fully dynamic prediction based on query parameters
-- ✅ Git version controlled and extensible design
+  - Support Vector Machine (BoW & TF-IDF)
+  - Multinomial Naive Bayes (BoW & TF-IDF)
+- **Dual Vectorization**: Bag of Words (BoW) and TF-IDF support
+- **RESTful API**: Built with FastAPI for high performance
+- **Interactive Documentation**: Automatic Swagger UI generation
+- **Model Persistence**: Serialized models and vectorizers using joblib
+- **Modular Architecture**: Clean, maintainable Python codebase
+- **Version Control**: Git-tracked development
 
----
+## 📁 Project Structure
 
-## 🧱 Project Structure
-
+```
 Sentiment_Analysis/
 ├── app/
-│ ├── main.py # FastAPI app with /predict endpoint
-│ ├── models_util.py # ML prediction logic
-│ └── schemas.py # Pydantic schema for request validation
+│   ├── main.py              # FastAPI application entry point
+│   ├── models_util.py       # Model loading and prediction utilities
+│   └── schemas.py           # Pydantic data schemas
 ├── models/
-│ ├── sentiment_model(LR-BOW).pkl
-│ ├── sentiment_model(LR-TFIDF).pkl
-│ ├── sentiment_model(SVM-BOW).pkl
-│ ├── sentiment_model(SVM-TFIDF).pkl
-│ ├── sentiment_model(MNB-BOW).pkl
-│ ├── sentiment_model(MNB-TFIDF).pkl
-│ ├── bow_vectorizer.pkl
-│ └── tfidf_vectorizer.pkl
-├── Sentiment.ipynb # Model training and evaluation
-├── requirements.txt
-└── README.md
+│   ├── sentiment_model(LR-BOW).pkl      # Logistic Regression + BoW
+│   ├── sentiment_model(LR-TFIDF).pkl    # Logistic Regression + TF-IDF
+│   ├── sentiment_model(SVM-BOW).pkl     # SVM + BoW
+│   ├── sentiment_model(SVM-TFIDF).pkl   # SVM + TF-IDF
+│   ├── sentiment_model(MNB-BOW).pkl     # Naive Bayes + BoW
+│   ├── sentiment_model(MNB-TFIDF).pkl   # Naive Bayes + TF-IDF
+│   ├── bow_vectorizer.pkl               # Bag of Words vectorizer
+│   └── tfidf_vectorizer.pkl             # TF-IDF vectorizer
+├── Sentiment.ipynb         # Model training and evaluation notebook
+├── requirements.txt        # Python dependencies
+└── README.md              # Project documentation
+```
 
+## ⚙️ Installation
+
+### Prerequisites
+- Python 3.10 or higher
+- pip package manager
+
+### Setup Instructions
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Subhraneel2003/Sentiment_Analysis.git
+   cd Sentiment_Analysis
+   ```
+
+2. **Create virtual environment** (recommended)
+   ```bash
+   # Create virtual environment
+   python -m venv venv
+   
+   # Activate virtual environment
+   # Windows
+   venv\Scripts\activate
+   
+   # Linux/Mac
+   source venv/bin/activate
+   ```
+
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## 🏃‍♂️ Running the Application
+
+1. **Start the FastAPI server**
+   ```bash
+   uvicorn app.main:app --reload
+   ```
+
+2. **Access the application**
+   - API Documentation: http://127.0.0.1:8000/docs
+   - Alternative Documentation: http://127.0.0.1:8000/redoc
+   - API Base URL: http://127.0.0.1:8000
+
+3. **Test using Swagger UI**
+   Navigate to the `/docs` endpoint to use the interactive API documentation for testing.
+
+## 📡 API Usage
+
+### Prediction Endpoint
+
+**POST** `/predict`
+
+#### Query Parameters
+- `model`: Model type (`lr`, `svm`, `mnb`)
+- `vectorizer`: Vectorization method (`bow`, `tfidf`)
+
+#### Request Body
+```json
+{
+  "text": "This movie was absolutely amazing! Great acting and storyline."
+}
+```
+
+#### Response
+```json
+{
+  "sentiment": "positive"
+}
+```
+
+#### Example Requests
+
+```bash
+# Logistic Regression with TF-IDF
+curl -X POST "http://127.0.0.1:8000/predict?model=lr&vectorizer=tfidf" \
+     -H "Content-Type: application/json" \
+     -d '{"text": "I loved this movie!"}'
+
+# SVM with Bag of Words
+curl -X POST "http://127.0.0.1:8000/predict?model=svm&vectorizer=bow" \
+     -H "Content-Type: application/json" \
+     -d '{"text": "Terrible movie, waste of time."}'
+```
+
+## 🤖 Supported Models & Vectorizers
+
+### Models
+| Code | Algorithm | Description |
+|------|-----------|-------------|
+| `lr` | Logistic Regression | Linear classification algorithm |
+| `svm` | Support Vector Machine | Margin-based classification |
+| `mnb` | Multinomial Naive Bayes | Probabilistic classification |
+
+### Vectorizers
+| Code | Method | Description |
+|------|--------|-------------|
+| `bow` | Bag of Words | Word frequency-based vectorization |
+| `tfidf` | TF-IDF | Term frequency-inverse document frequency |
+
+## 🛠️ Tech Stack
+
+- **Backend Framework**: FastAPI
+- **ASGI Server**: Uvicorn
+- **Machine Learning**: scikit-learn
+- **Natural Language Processing**: NLTK
+- **Model Serialization**: joblib
+- **Data Validation**: Pydantic
+- **Language**: Python 3.10+
+
+## 🎯 Learning Objectives
+
+This project demonstrates:
+- Training and persisting machine learning models
+- Building robust text preprocessing pipelines
+- Creating RESTful APIs with FastAPI
+- Implementing model serving architecture
+- Using interactive API documentation
+- Applying software engineering best practices
+
+## 🔮 Future Enhancements
+
+- [ ] **Enhanced Responses**: Add confidence scores and probability distributions
+- [ ] **Model Management**: `/models` endpoint to list available models and their performance
+- [ ] **Frontend Interface**: Streamlit or React-based web interface
+- [ ] **Containerization**: Docker support for easy deployment
+- [ ] **Cloud Deployment**: Deploy on AWS, GCP, or Azure
+- [ ] **Model Monitoring**: Performance tracking and logging
+- [ ] **Batch Processing**: Support for multiple text predictions
+- [ ] **Real-time Updates**: WebSocket support for live predictions
+
+## 📊 Model Performance
+
+The models were trained on the IMDB Movie Review Dataset with the following preprocessing pipeline:
+- HTML tag removal
+- Lowercasing
+- Stopword removal
+- Lemmatization
+- Vectorization (BoW/TF-IDF)
+
+*Note: Detailed performance metrics can be found in the `Sentiment.ipynb` notebook.*
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+```
+MIT License © 2025 Subhraneel Das
+```
+
+## 🙏 Acknowledgments
+
+- [FastAPI](https://fastapi.tiangolo.com/) - Modern, fast web framework for building APIs
+- [scikit-learn](https://scikit-learn.org/) - Machine learning library for Python
+- [NLTK](https://www.nltk.org/) - Natural Language Toolkit
+- [Kaggle IMDB Dataset](https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews) - Training data source
 
 ---
 
-## 📦 Installation
-'''bash
-# Clone the repository
-git clone https://github.com/Subhraneel2003/Sentiment_Analysis.git
-cd Sentiment_Analysis
-
-# (Optional) Create a virtual environment
-python -m venv venv
-venv\Scripts\activate        # On Windows
-# or
-source venv/bin/activate     # On Mac/Linux
-
-# Install dependencies
-pip install -r requirements.txt
-'''
-
-
-##🏃 Run the FastAPI Server
-uvicorn app.main:app --reload
-
-##📬 API Usage
+**Built with ❤️ by [Subhraneel Das](https://github.com/Subhraneel2003)**
