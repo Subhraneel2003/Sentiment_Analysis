@@ -1,10 +1,12 @@
 import joblib
 import os
 import re
+import nltk
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize.toktok import ToktokTokenizer
 from nltk.corpus import stopwords
 tokenizer = ToktokTokenizer()
+nltk.data.path.append("./nltk_data")  # Add this line
 stopword_list = stopwords.words('english')
 lemmatizer = WordNetLemmatizer()
 def preprocess_text(text):
