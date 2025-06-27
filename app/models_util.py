@@ -30,8 +30,8 @@ def preprocess_text(text):
 def load_model_and_vectorizer(model_name, vectorizer_name):
     model_name = model_name.lower()
     vectorizer_name = vectorizer_name.lower()
-    model_path = f"D:/Projects/Sentiment_Analysis/Models/{model_name}_{vectorizer_name}_model.pkl"
-    vectorizer_path = f"D:/Projects/Sentiment_Analysis/Models/{vectorizer_name}_vectorizer.pkl"
+    model_path = f"Models/{model_name}_{vectorizer_name}_model.pkl"
+    vectorizer_path = f"Models/{vectorizer_name}_vectorizer.pkl"
 
     if not os.path.exists(model_path):
         raise ValueError(f"Model file not found: {model_path}")
