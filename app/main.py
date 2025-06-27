@@ -8,6 +8,10 @@ nltk.data.path.append("./nltk_data")
 app = FastAPI()
 class TextInput(BaseModel):
     text: str
+    
+@app.get("/")
+def home():
+    return {"message": "Welcome to the Sentiment Analysis API. Go to /docs for Swagger UI."}
 
 @app.post("/predict")
 def predict(payload: TextInput,model: str="lr", vectortize: str="tfidf"):
