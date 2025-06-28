@@ -7,7 +7,7 @@ from nltk.tokenize.toktok import ToktokTokenizer
 from nltk.corpus import stopwords
 tokenizer = ToktokTokenizer()
 lemmatizer = WordNetLemmatizer()
-nltk.data.path.append("app/nltk_data")  # Add this line
+nltk.data.path.append("app/nltk_data/corpora")  # Add this line
 stopword_list = stopwords.words('english')
 
 def preprocess_text(text):
