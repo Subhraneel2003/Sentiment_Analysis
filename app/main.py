@@ -2,7 +2,7 @@ from fastapi import FastAPI
 import nltk
 from pydantic import BaseModel
 from app.models_util import predict_sentiment
-nltk.data.path.append("./nltk_data")
+nltk.data.path.append("app/nltk_data/corpora")
 
 
 app = FastAPI()
