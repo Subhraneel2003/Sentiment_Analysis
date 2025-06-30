@@ -25,12 +25,12 @@ Sentiment_Analysis/
 │   ├── models_util.py       # Model loading and prediction utilities
 │   └── schemas.py           # Pydantic data schemas
 ├── models/
-│   ├── sentiment_model(LR-BOW).pkl      # Logistic Regression + BoW
-│   ├── sentiment_model(LR-TFIDF).pkl    # Logistic Regression + TF-IDF
-│   ├── sentiment_model(SVM-BOW).pkl     # SVM + BoW
-│   ├── sentiment_model(SVM-TFIDF).pkl   # SVM + TF-IDF
-│   ├── sentiment_model(MNB-BOW).pkl     # Naive Bayes + BoW
-│   ├── sentiment_model(MNB-TFIDF).pkl   # Naive Bayes + TF-IDF
+│   ├── lr_bow_model.pkl      # Logistic Regression + BoW
+│   ├── lr_tfidf_model.pkl    # Logistic Regression + TF-IDF
+│   ├── svm_bow_model.pkl     # SVM + BoW
+│   ├── svm_tfidf_model.pkl   # SVM + TF-IDF
+│   ├── mnb_bow_model.pkl     # Naive Bayes + BoW
+│   ├── mnb_tfidf_model.pkl   # Naive Bayes + TF-IDF
 │   ├── bow_vectorizer.pkl               # Bag of Words vectorizer
 │   └── tfidf_vectorizer.pkl             # TF-IDF vectorizer
 ├── Sentiment.ipynb         # Model training and evaluation notebook
